@@ -1,17 +1,26 @@
 $(document).ready(function () {
-  // Initialize the displayed list of selected amenities
-  const selectedAmenitiesList = $('div.Amenities h4');
+  const selectedAmenities = {};
 
-  // Listen for changes on all input checkbox tags
-  $("input[type='checkbox']").change(function () {
+  // Function to update the h4 tag with the list of selected amenities
+  function updateAmenitiesList () {
+    const amenitiesList = Object.values(selectedAmenities).join(', ');
+    $('.amenities h4').text(amenitiesList);
+  }
+
+  // Listen for changes on checkbox inputs
+  $('.amenities input[type="checkbox"]').change(function () {
+    const amenityId = $(this).data('id');
     const amenityName = $(this).data('name');
-    // Check if the checkbox is checked
-    if ($(this).prop('checked')) {
-      // Append the amenity to the displayed list
-      selectedAmenitiesList.append(amenityName + ', ');
+
+    if ($(this).is(':checked')) {
+      // Checkbox is checked, store the Amenity ID and Name
+      selectedAmenities[amenityId] = amenityName;
     } else {
-      // Remove the amenity from the displayed list
-      selectedAmenitiesList.html(selectedAmenitiesList.html().replace(amenityName + ', ', ''));
+      // Checkbox is unchecked, remove the Amenity ID
+      delete selectedAmenities[amenityId];
     }
+
+    // Update the amenities list display
+    updateAmenitiesList();
   });
 });
