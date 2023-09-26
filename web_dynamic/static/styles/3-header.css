@@ -12,10 +12,12 @@ header .logo {
 
 header #api_status {
     float: right;
+    top: 15px;
     right: 30px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    position: absolute;
     display: flex;
     align-items: center; /*centers vertically*/
     justify-content: center; /*centers vertically*/
