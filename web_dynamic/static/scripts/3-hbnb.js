@@ -21,6 +21,7 @@ $(document).ready(() => {
 
     updateAmenities();
   });
+
   const checkAPIStatus = () => {
     $.ajax({
       type: 'GET',
@@ -36,53 +37,34 @@ $(document).ready(() => {
   };
   checkAPIStatus();
 
-  /*const fetchPlaces = () => {
-    $.ajax({
-      type: 'POST',
-      url: 'http://0.0.0.0:5001/api/v1/places_search/',
-      contentType: 'application/json',
-      data: JSON.stringify({}),
-      success: function (data) {
-        displayPlaces(data); // Call a function to display the places
-      },
-      error: function (error) {
-        console.error('Error searching places:', error);
-      }
-    });
-  };
-  fetchPlaces();*/
-
   const searchPlaces = () => {
     $.ajax({
       type: 'POST',
       url: 'http://0.0.0.0:5001/api/v1/places_search',
       contentType: 'application/json',
-      data: JSON.stringify({}), 
+      data: JSON.stringify({}),
       success: function (data) {
-        //console.log(data);
-        displayPlaces(data); 
+        // console.log(data);
+        displayPlaces(data);
       },
       error: function (error) {
         console.error('Error searching places:', error);
       }
     });
   };
-  
-  // Function to display places in the HTML
-  const displayPlaces = (places) => {
-    const placesSection = $('.places'); 
-    placesSection.empty(); 
 
-    places.forEach((place) => {
+  const displayPlaces = (placesData) => {
+    const placesSection = $('section.places');
+
+    for (const place of placesData) {
       const article = $('<article>');
-      article.append(`<div class="title"><h2>${place.name}</h2></div>`);
-      article.append(`<div class="price_by_night">$${place.price_by_night} per night</div>`);
+      article.append(`<div class="title_box"><h2>${place.name}</h2><div class="price_by_night">$${place.price_by_night} per night</div></div>`);
       article.append(`<div class="information"><div class="max_guest">${place.max_guest} Guests</div><div class="number_rooms">${place.number_rooms} Bedrooms</div><div class="number_bathrooms">${place.number_bathrooms} Bathroom</div></div>`);
       article.append(`<div class="description">${place.description}</div>`);
-  
-      placesSection.append(article);
-    });
-  };
-  searchPlaces();
 
+      placesSection.append(article);
+    }
+  };
+
+  searchPlaces();
 });
