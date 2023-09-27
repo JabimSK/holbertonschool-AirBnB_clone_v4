@@ -37,7 +37,6 @@ $(document).ready(() => {
   };
   checkAPIStatus();
 
-  // let requestData = {}
   const searchPlaces = () => {
     $.ajax({
       type: 'POST',
@@ -45,7 +44,7 @@ $(document).ready(() => {
       contentType: 'application/json',
       data: JSON.stringify({}),
       success: function (data) {
-        // console.log(data);
+        console.log(data);
         displayPlaces(data);
       },
       error: function (error) {
@@ -67,11 +66,23 @@ $(document).ready(() => {
     }
   };
 
+  $('button').on('click', function () {
+    // Make a new POST request to places_search with the list of checked Amenities
+    $.ajax({
+      type: 'POST',
+      url: 'http://0.0.0.0:5001/api/v1/places_search',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        amenities: Object.keys(amenityIDs), // Pass the list of checked amenity IDs
+      }),
+      success: function (data) {
+        displayPlaces(data);
+      },
+      error: function (error) {
+        console.error('Error searching places:', error);
+      }
+    });
+  });
+  
   searchPlaces();
-
-  console.log(amenityIDs);
-
-  /*${'button'}.on('click', function() {
-    searchPlaces(checkedAmenities);
-  })*/
 });
