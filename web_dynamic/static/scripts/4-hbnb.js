@@ -55,6 +55,7 @@ $(document).ready(() => {
 
   const displayPlaces = (placesData) => {
     const placesSection = $('section.places');
+    placesSection.empty();
 
     for (const place of placesData) {
       const article = $('<article>');
@@ -83,6 +84,6 @@ $(document).ready(() => {
       }
     });
   });
-  
+
   searchPlaces();
 });
