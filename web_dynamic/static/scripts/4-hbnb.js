@@ -78,7 +78,7 @@ $(document).ready(() => {
   $('button').on('click', function () {
     // Make a new POST request to places_search, passing the list of checked Amenities
     const checkedAmenitiesList = Object.keys(amenityIDs);
-    searchPlaces({'amenities': checkedAmenitiesList});
+    searchPlaces({ amenities: checkedAmenitiesList });
   });
 
   searchPlaces();
